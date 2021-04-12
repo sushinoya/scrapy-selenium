@@ -106,6 +106,11 @@ class SeleniumMiddleware:
                 }
             )
 
+         # Assume implicit wait
+        if request.wait_time and not request.wait_until:
+            self.driver.implicitly_wait(request.wait_time)
+
+        # Explicit wait
         if request.wait_until:
             WebDriverWait(self.driver, request.wait_time).until(
                 request.wait_until
